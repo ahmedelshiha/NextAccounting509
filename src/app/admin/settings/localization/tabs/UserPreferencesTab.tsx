@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocalizationContext } from '../LocalizationProvider'
 import { BarChart3 } from 'lucide-react'
 
@@ -11,7 +11,8 @@ interface AnalyticsDistribution {
 }
 
 export const UserPreferencesTab: React.FC = () => {
-  const { languages, analyticsData, setAnalyticsData, loading, setLoading } = useLocalizationContext()
+  const { languages, analyticsData, setAnalyticsData } = useLocalizationContext()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     loadAnalytics()

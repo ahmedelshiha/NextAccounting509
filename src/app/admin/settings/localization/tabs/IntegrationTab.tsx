@@ -31,7 +31,8 @@ interface WebhookConfig {
 }
 
 export const IntegrationTab: React.FC = () => {
-  const { crowdinIntegration, setCrowdinIntegration, loading, setLoading, saving, setSaving } = useLocalizationContext()
+  const { crowdinIntegration, setCrowdinIntegration, saving, setSaving } = useLocalizationContext()
+  const [loading, setLoading] = useState(true)
   const [crowdinTestLoading, setCrowdinTestLoading] = useState(false)
   const [crowdinTestResult, setCrowdinTestResult] = useState<{ success: boolean; message: string } | null>(null)
   const [projectHealth, setProjectHealth] = useState<ProjectHealth[]>([])

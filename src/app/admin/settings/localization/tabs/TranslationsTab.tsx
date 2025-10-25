@@ -1,12 +1,13 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocalizationContext } from '../LocalizationProvider'
 import PermissionGate from '@/components/PermissionGate'
 import { PERMISSIONS } from '@/lib/permissions'
 
 export const TranslationsTab: React.FC = () => {
-  const { translationStatus, setTranslationStatus, loading, setLoading } = useLocalizationContext()
+  const { translationStatus, setTranslationStatus } = useLocalizationContext()
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     loadTranslationStatus()

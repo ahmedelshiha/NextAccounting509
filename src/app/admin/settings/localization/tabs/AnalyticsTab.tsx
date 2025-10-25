@@ -20,7 +20,8 @@ interface TrendsResponse {
 }
 
 export const AnalyticsTab: React.FC = () => {
-  const { analyticsData, setAnalyticsData, loading, setLoading } = useLocalizationContext()
+  const { analyticsData, setAnalyticsData } = useLocalizationContext()
+  const [loading, setLoading] = useState(true)
   const [trends, setTrends] = useState<TrendsResponse | null>(null)
   const [trendsLoading, setTrendsLoading] = useState(false)
 

@@ -20,7 +20,8 @@ interface FormatState {
 }
 
 export const RegionalFormatsTab: React.FC = () => {
-  const { languages, loading, setLoading, saving, setSaving } = useLocalizationContext()
+  const { languages, saving, setSaving } = useLocalizationContext()
+  const [loading, setLoading] = useState(true)
   const [formats, setFormats] = useState<FormatState>({})
   const [previewDate] = useState(new Date(2025, 9, 21))
   const [previewNumber] = useState(1234.56)

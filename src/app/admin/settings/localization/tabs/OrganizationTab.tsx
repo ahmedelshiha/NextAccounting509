@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocalizationContext } from '../LocalizationProvider'
 import PermissionGate from '@/components/PermissionGate'
 import { PERMISSIONS } from '@/lib/permissions'
@@ -13,13 +13,13 @@ export const OrganizationTab: React.FC = () => {
     orgSettings,
     setOrgSettings,
     languages,
-    loading,
-    setLoading,
     saving,
     setSaving,
     error,
     setError,
   } = useLocalizationContext()
+
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     loadOrgSettings()

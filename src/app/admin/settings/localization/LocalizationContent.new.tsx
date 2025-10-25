@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, Suspense, lazy, useCallback, useMemo } from 'react'
+import React, { useEffect, Suspense, lazy, useCallback, useMemo, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import SettingsShell from '@/components/admin/settings/SettingsShell'
 import FavoriteToggle from '@/components/admin/settings/FavoriteToggle'
@@ -96,7 +96,8 @@ const TabRenderer = React.memo(function TabRenderer({ TabComponent, loading }: {
 
 export default function LocalizationContent() {
   const searchParams = useSearchParams()
-  const { activeTab, setActiveTab, loading, saving } = useLocalizationContext()
+  const { activeTab, setActiveTab, saving } = useLocalizationContext()
+  const [initialLoading, setInitialLoading] = useState(true)
 
   // Memoize tab change handler
   const handleTabChange = useCallback((k: string) => {
@@ -110,6 +111,12 @@ export default function LocalizationContent() {
       setActiveTab(t)
     }
   }, [searchParams, setActiveTab])
+
+  // Mark initial loading complete after first render to allow tabs to load their own data
+  useEffect(() => {
+    const timer = setTimeout(() => setInitialLoading(false), 100)
+    return () => clearTimeout(timer)
+  }, [])
 
   // Memoize tab component selection
   const TabComponent = useMemo(() => TAB_COMPONENTS[activeTab], [activeTab])
@@ -131,9 +138,9 @@ export default function LocalizationContent() {
       tabs={TABS}
       activeTab={activeTab}
       onChangeTab={handleTabChange}
-      loading={loading}
+      loading={initialLoading}
     >
-      <TabRenderer TabComponent={TabComponent} loading={loading} />
+      <TabRenderer TabComponent={TabComponent} loading={initialLoading} />
     </SettingsShell>
   )
 }

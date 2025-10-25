@@ -13,14 +13,13 @@ export const LanguagesTab: React.FC = () => {
   const {
     languages,
     setLanguages,
-    loading,
-    setLoading,
     saving,
     setSaving,
     error,
     setError,
   } = useLocalizationContext()
 
+  const [loading, setLoading] = useState(true)
   const [showAddForm, setShowAddForm] = useState(false)
   const [editing, setEditing] = useState<Record<string, Partial<LanguageRow>>>({})
   const [newLang, setNewLang] = useState<LanguageRow>({

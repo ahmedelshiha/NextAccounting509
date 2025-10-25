@@ -7,19 +7,19 @@ import type { RegionalFormat } from '../types'
 import { toast } from 'sonner'
 
 export function useRegionalFormats() {
-  const { setLoading, setSaving } = useLocalizationContext()
+  const { setSaving } = useLocalizationContext()
 
   const loadFormats = useCallback(async () => {
     try {
-      setLoading(true)
       const r = await fetch('/api/admin/regional-formats')
       const d = await r.json()
       if (!r.ok) throw new Error(d?.error || 'Failed to load regional formats')
       return (d.data || []) as RegionalFormat[]
-    } finally {
-      setLoading(false)
+    } catch (e) {
+      console.error('Failed to load regional formats:', e)
+      throw e
     }
-  }, [setLoading])
+  }, [])
 
   const saveFormat = useCallback(async (format: RegionalFormat) => {
     setSaving(true)

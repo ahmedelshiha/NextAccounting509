@@ -6,13 +6,12 @@ import type { CrowdinIntegration } from '../types'
 import { toast } from 'sonner'
 
 export function useCrowdinIntegration() {
-  const { setLoading, setSaving, setError, setCrowdinIntegration } = useLocalizationContext()
+  const { setSaving, setError, setCrowdinIntegration } = useLocalizationContext()
   const [testLoading, setTestLoading] = useState(false)
   const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null)
 
   const loadCrowdin = useCallback(async () => {
     try {
-      setLoading(true)
       const r = await fetch('/api/admin/crowdin-integration')
       if (r.ok) {
         const d = await r.json()
@@ -26,10 +25,10 @@ export function useCrowdinIntegration() {
           })
         }
       }
-    } finally {
-      setLoading(false)
+    } catch (e) {
+      console.error('Failed to load Crowdin integration:', e)
     }
-  }, [setLoading, setCrowdinIntegration])
+  }, [setCrowdinIntegration])
 
   const testConnection = useCallback(async (payload: Pick<CrowdinIntegration, 'projectId' | 'apiToken'>) => {
     setTestLoading(true)

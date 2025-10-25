@@ -6,11 +6,10 @@ import type { LanguageRow } from '../types'
 import { toast } from 'sonner'
 
 export function useLanguages() {
-  const { setLanguages, setLoading, setSaving, setError } = useLocalizationContext()
+  const { setLanguages, setSaving, setError } = useLocalizationContext()
 
   const loadLanguages = useCallback(async () => {
     try {
-      setLoading(true)
       const r = await fetch('/api/admin/languages')
       const d = await r.json()
       if (!r.ok) throw new Error(d?.error || 'Failed to load languages')
@@ -18,10 +17,8 @@ export function useLanguages() {
     } catch (e: any) {
       setError(e?.message || 'Failed to load languages')
       throw e
-    } finally {
-      setLoading(false)
     }
-  }, [setLanguages, setLoading, setError])
+  }, [setLanguages, setError])
 
   const createLanguage = useCallback(async (lang: LanguageRow) => {
     setSaving(true)

@@ -29,7 +29,6 @@ export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({ chil
   const [translationStatus, setTranslationStatus] = useState<TranslationStatus | null>(null)
   const [missingKeys, setMissingKeys] = useState<MissingKey[]>([])
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null)
-  const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -67,10 +66,6 @@ export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({ chil
     setAnalyticsData(data)
   }, [])
 
-  const memoizedSetLoading = useCallback((isLoading: boolean | ((prev: boolean) => boolean)) => {
-    setLoading(isLoading)
-  }, [])
-
   const memoizedSetSaving = useCallback((isSaving: boolean | ((prev: boolean) => boolean)) => {
     setSaving(isSaving)
   }, [])
@@ -101,8 +96,6 @@ export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({ chil
     setMissingKeys: memoizedSetMissingKeys,
     analyticsData,
     setAnalyticsData: memoizedSetAnalyticsData,
-    loading,
-    setLoading: memoizedSetLoading,
     saving,
     setSaving: memoizedSetSaving,
     saved,
@@ -118,7 +111,6 @@ export const LocalizationProvider: React.FC<LocalizationProviderProps> = ({ chil
     translationStatus, memoizedSetTranslationStatus,
     missingKeys, memoizedSetMissingKeys,
     analyticsData, memoizedSetAnalyticsData,
-    loading, memoizedSetLoading,
     saving, memoizedSetSaving,
     saved, memoizedSetSaved,
     error, memoizedSetError,
